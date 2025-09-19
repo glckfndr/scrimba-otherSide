@@ -1,11 +1,12 @@
 import http from "node:http";
+import { serveStatic } from "./utils/serveStatic.js";
+
 const PORT = 8000;
 
-const server = http.createServer((req, res) => {
-  //res.setHeader("Content-type", "text/html");
-  //res.statusCode = 200;
-  res.writeHead(200, { "Content-Type": "text/html" });
-  res.end("<html><h1>The server is working now</h1></html>");
+const __dirname = import.meta.dirname;
+
+const server = http.createServer(async (req, res) => {
+  await serveStatic(req, res, __dirname);
 });
 
-server.listen(PORT, () => console.log(`server is running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Connected on port: ${PORT}`));
